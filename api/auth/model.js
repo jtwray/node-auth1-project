@@ -2,8 +2,9 @@ const db = require("../dbConfig.js");
 
 module.exports = {
   getUser,
-  getUserByProperty,
-  addUser,
+  getUserByProperty, // needed for MVP
+  getUserBy, // needed for MVP
+  addUser, // needed for MVP
   updateUser,
   removeUser
 };
@@ -29,13 +30,24 @@ function getUserByProperty(property) {
 }
 
 /**
+ * Gets a user by a property of the users table.
+ * @param {object} property -- could be id, username, email.
+ * @returns {user} -- id, username, and email, AND PASSWORD of the user you searched for.
+ */
+function getUserBy(property) {
+  return db("users")
+    .where(property)
+    .first();
+}
+
+/**
  * Adds a new user to the database
  * @param {object} newUser -- needs username, password, and email
  * @returns {user} returns the new user created with id, username, and email.
  */
 async function addUser(newUser) {
   const [id] = await db("users").insert(newUser, "id");
-  const user = await getUserByProperty(id);
+  const user = await getUserBy(id);
   return user;
 }
 
