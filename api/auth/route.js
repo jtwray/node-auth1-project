@@ -10,7 +10,7 @@ const { registerReq, loginReq, uniqueUserReg } = require("./middleware.js");
 router.post("/register", registerReq, uniqueUserReg, (req, res) => {
   const newUser = {
     ...req.body, // passing in other req.body requirements.
-    password: bcrypt.hashSync(newUser.password, 12) // hashing password before it's added to database.
+    password: bcrypt.hashSync(req.body.password, 12) // hashing password before it's added to database.
   };
 
   addUser(newUser)

@@ -40,9 +40,19 @@ server.use(cors()); // needed for React App stretch.
 server.use(express());
 server.use(morgan("dev"));
 
+// test route -- has to be before line 54.
+server.get("/", (req, res) => {
+  res
+    .status(200)
+    .send(
+      `<h1>Server is up and running</h1><p>Try hitting '/api/auth/register' next!</p>`
+    );
+});
+
 // delcaring routes with middleware
 server.use("/api/auth", AuthRouter);
 server.use(restricted); // all routes pass here user must be logged in. Also global middleware.
 server.use("/api/users", UsersRouter);
+
 
 module.exports = server;

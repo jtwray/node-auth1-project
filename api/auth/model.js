@@ -47,7 +47,7 @@ function getUserBy(property) {
  */
 async function addUser(newUser) {
   const [id] = await db("users").insert(newUser, "id");
-  const user = await getUserBy(id);
+  const user = await getUserBy({ id });
   return user;
 }
 

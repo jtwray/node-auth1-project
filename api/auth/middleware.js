@@ -13,11 +13,9 @@ function restricted(req, res, next) {
   if (req.session && req.session.username) {
     next();
   } else {
-    res
-      .status(401)
-      .json({
-        message: "Please login before attempting to access this route."
-      });
+    res.status(401).json({
+      message: "Please login before attempting to access this route."
+    });
   }
 }
 
@@ -48,14 +46,14 @@ function registerReq(req, res, next) {
 function uniqueUserReg(req, res, next) {
   let { username, email } = req.body;
 
-  getUserByProperty(username)
+  getUserByProperty({ username: username })
     .then(user => {
       if (user) {
         res.status(400).json({
           message: "Sorry. That username has been taken. Please choose another."
         });
       } else {
-        getUserByProperty(email)
+        getUserByProperty({ email: email })
           .then(user => {
             if (user)
               res.status(400).json({
