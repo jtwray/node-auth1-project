@@ -10,11 +10,15 @@ module.exports = { restricted, registerReq, loginReq, uniqueUserReg };
  * @param {*} next next function from express
  */
 function restricted(req, res, next) {
-  if (req.session && req.session.username) next();
-  else
+  if (req.session && req.session.username) {
+    next();
+  } else {
     res
       .status(401)
-      .json({ message: "Please login before accessing this page." });
+      .json({
+        message: "Please login before attempting to access this route."
+      });
+  }
 }
 
 /**
@@ -40,8 +44,7 @@ function registerReq(req, res, next) {
   }
 }
 
-
-// creating more helpful errors for unique validation issues. 
+// creating more helpful errors for unique validation issues.
 function uniqueUserReg(req, res, next) {
   let { username, email } = req.body;
 
@@ -85,16 +88,17 @@ function uniqueUserReg(req, res, next) {
  * validates that username and password is there
  * before we attempt to login and give them a session
  */
-function loginReq(req, res, next) {}
-let { username, password } = req.body;
+function loginReq(req, res, next) {
+  let { username, password } = req.body;
 
-switch (true) {
-  case !req.body:
-    return res.status(400).json({ message: "Please add a body." });
-  case !username:
-    return res.status(400).json({ message: "Please add an username." });
-  case !password:
-    return res.status(400).json({ message: "Please add a password." });
-  default:
-    next();
+  switch (true) {
+    case !req.body:
+      return res.status(400).json({ message: "Please add a body." });
+    case !username:
+      return res.status(400).json({ message: "Please add an username." });
+    case !password:
+      return res.status(400).json({ message: "Please add a password." });
+    default:
+      next();
+  }
 }

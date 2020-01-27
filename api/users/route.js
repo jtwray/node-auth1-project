@@ -35,7 +35,7 @@ router.put("/:user_id", validateUserPermissions, (req, res) => {
     );
 });
 
-router.delete("/:user_id", validateUserPermissionsm, (req, res) => {
+router.delete("/:user_id", validateUserPermissions, (req, res) => {
   const id = req.params.user_id;
 
   removeUser(id)

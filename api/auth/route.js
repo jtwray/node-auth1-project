@@ -2,12 +2,12 @@ const router = require("express").Router();
 const bcrypt = require("bcryptjs");
 
 // database functions
-const { getUserByProperty, addUser, uniqueUserReq } = require("./model.js");
+const { getUserByProperty, addUser } = require("./model.js");
 
 // middleware
-const { registerReq, loginReq } = require("./middleware.js");
+const { registerReq, loginReq, uniqueUserReg } = require("./middleware.js");
 
-router.post("/register", registerReq, uniqueUserReq, (req, res) => {
+router.post("/register", registerReq, uniqueUserReg, (req, res) => {
   const newUser = {
     ...req.body, // passing in other req.body requirements.
     password: bcrypt.hashSync(newUser.password, 12) // hashing password before it's added to database.
