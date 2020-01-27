@@ -1,7 +1,7 @@
 const db = require("../dbConfig.js");
 
 module.exports = {
-  getUser,
+  getUsers,
   getUserByProperty, // needed for MVP
   getUserBy, // needed for MVP
   addUser, // needed for MVP
@@ -13,7 +13,7 @@ module.exports = {
  * Gets a list of usernames
  * @returns {Array} -- of all current usernames.
  */
-function getUser() {
+function getUsers() {
   return db("users").select("users.username");
 }
 

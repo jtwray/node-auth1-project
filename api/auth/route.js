@@ -29,6 +29,7 @@ router.post("/login", loginReq, (req, res) => {
 
   getUserByProperty(username)
     .then(user => {
+      // middleware to check if user logged in successfully MVP requirement.
       if (user && bcrypt.compareSync(password.user.password)) {
         req.session.username = user.username; // Tuesday's MVP setting session of user.
         return res.status(200).json({

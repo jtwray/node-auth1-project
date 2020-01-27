@@ -3,12 +3,18 @@ const express = require("express");
 const helmet = require("helmet");
 // For Stretch
 const cors = require("cors");
+// global middleware
+const { restricted } = require("./auth/middleware.js");
+
 // really awesome logger, check it out on npm https://www.npmjs.com/package/morgan
 const morgan = require("morgan");
+
 // Tuesday's MVP
 const session = require("express-session");
 
+// importing routes
 const AuthRouter = require("./auth/route.js");
+const UsersRouter = require("./users/route.js");
 
 const server = express();
 
@@ -36,5 +42,7 @@ server.use(moragn(dev));
 
 // delcaring routes with middleware
 server.use("/api/auth", AuthRouter);
+server.use(restricted()); // all routes pass here user must be logged in. Also global middleware.
+server.use("/api/users", UsersRouter);
 
 module.exports = server;

@@ -1,4 +1,3 @@
-const bcrypt = require("bcryptjs");
 const { getUserByProperty } = require("./model.js");
 
 module.exports = { restricted, registerReq, loginReq, uniqueUserReg };
