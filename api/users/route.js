@@ -8,6 +8,7 @@ const { getUsers, updateUser, removeUser } = require("../auth/model.js");
 // middleware functions
 const { validateUserPermissions } = require("./middleware.js");
 
+// gets all usersnames -- stretch display
 router.get("/", (req, res) => {
   getUsers()
     .then(users => res.status(200).json(users))
@@ -20,6 +21,7 @@ router.get("/", (req, res) => {
     );
 });
 
+// allows update of user that is logged in
 router.put("/:user_id", validateUserPermissions, (req, res) => {
   const id = req.params.user_id;
   const changes = req.body;
@@ -35,6 +37,7 @@ router.put("/:user_id", validateUserPermissions, (req, res) => {
     );
 });
 
+// allows deletion of user that is logged in
 router.delete("/:user_id", validateUserPermissions, (req, res) => {
   const id = req.params.user_id;
 

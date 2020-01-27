@@ -33,7 +33,8 @@ router.post("/login", loginReq, (req, res) => {
       if (user && bcrypt.compareSync(password, user.password)) {
         req.session.username = user.username; // Tuesday's MVP setting session of user.
         return res.status(200).json({
-          message: `Logged in ${user.username}`
+          message: `Logged in ${user.username}`,
+          username: req.session.username
         });
       } else res.status(401).json({ message: "You shall not pass." });
     })
