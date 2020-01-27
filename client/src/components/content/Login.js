@@ -8,7 +8,12 @@ export default function Login() {
     console.log("data: ", data);
     axios
       .post("http://localhost:8675/api/auth/login", data)
-      .then(res => console.log("res:", res))
+      .then(res => {
+        console.log('res: ', res)
+        // set user session???
+        // push to dashboard.
+        //props.history.push('/dashboard');
+      })
       .catch(err => console.log("error:", err));
   };
   console.log("errors", errors);
