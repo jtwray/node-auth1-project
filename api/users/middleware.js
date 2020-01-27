@@ -9,7 +9,7 @@ module.exports = { validateUserPermissions };
 function validateUserPermissions(req, res, next) {
   const id = req.params.user_id;
 
-  getUserByProperty(id)
+  getUserByProperty({ id })
     .then(user => {
       if (!user) res.status(400).json({ message: "That user does not exist." });
       else if (user.username !== req.session.username)

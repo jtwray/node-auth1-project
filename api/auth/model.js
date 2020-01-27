@@ -61,7 +61,7 @@ async function updateUser(id, changes) {
   await db("users")
     .where({ id })
     .update(changes);
-  const updatedUser = await getUserByProperty(id);
+  const updatedUser = await getUserByProperty({ id });
   return updatedUser;
 }
 
@@ -74,6 +74,6 @@ async function removeUser(id) {
   await db("users")
     .where({ id })
     .del();
-  const users = await getUser();
+  const users = await getUsers();
   return users;
 }

@@ -2,7 +2,7 @@ const router = require("express").Router();
 const bcrypt = require("bcryptjs");
 
 // database functions
-const { getUserByProperty, addUser } = require("./model.js");
+const { getUserByProperty, getUserBy, addUser } = require("./model.js");
 
 // middleware
 const { registerReq, loginReq, uniqueUserReg } = require("./middleware.js");
@@ -27,10 +27,10 @@ router.post("/register", registerReq, uniqueUserReg, (req, res) => {
 router.post("/login", loginReq, (req, res) => {
   let { username, password } = req.body;
 
-  getUserByProperty(username)
+  getUserBy({ username })
     .then(user => {
       // middleware to check if user logged in successfully MVP requirement.
-      if (user && bcrypt.compareSync(password.user.password)) {
+      if (user && bcrypt.compareSync(password, user.password)) {
         req.session.username = user.username; // Tuesday's MVP setting session of user.
         return res.status(200).json({
           message: `Logged in ${user.username}`
@@ -47,6 +47,9 @@ router.post("/login", loginReq, (req, res) => {
 });
 
 // Tuesday's project. Destroying session on log out, otherwise it expires after the maxAge of sessionConfig.
-router.get("/logout", (req, res) => req.session.destroy());
+router.get("/logout", (req, res) => {
+  req.session.destroy();
+  res.status(200).json({ message: "logged out" });
+});
 
 module.exports = router;
