@@ -19,9 +19,11 @@
   "homepage": "https://github.com/Web25-TL/node-auth1-project#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "helmet": "^3.21.2",
     "knex": "^0.20.8",
+    "morgan": "^1.9.1",
     "pg": "^7.17.1",
     "sqlite3": "^4.1.1"
   },
