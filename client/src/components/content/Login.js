@@ -7,11 +7,13 @@ export default function Login(props) {
   const onSubmit = data => {
     console.log("data: ", data);
     axios
-      .post("http://localhost:8675/api/auth/login", data)
+      .post("http://localhost:8675/api/auth/login", data, {
+        withCredentials: true
+      })
       .then(res => {
         console.log("res: ", res);
         sessionStorage.setItem("username", res.data.username);
-        setTimeout(() => props.history.push("/dashboard"), 500)
+        setTimeout(() => props.history.push("/dashboard"), 500);
       })
       .catch(err => console.log("error:", err));
   };

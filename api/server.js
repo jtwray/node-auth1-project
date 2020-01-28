@@ -8,6 +8,13 @@ const morgan = require("morgan");
 
 // Tuesday's MVP
 const session = require("express-session");
+// stretch
+const KnexSessionStore = require("connect-session-knex")(session);
+
+const dbConnection = require("./dbConfig.js");
+
+// importing custom middleware
+const { restricted } = require("./auth/middleware.js");
 
 // importing routes
 const AuthRouter = require("./auth/route.js");
@@ -25,15 +32,29 @@ const sessionConfig = {
     secure: false
   },
   resave: false,
-  saveUninitialized: true
+  saveUninitialized: true,
+  store: new KnexSessionStore({
+    knex: dbConnection,
+    tablename: "sessions",
+    sidfieldname: "sid",
+    createtable: true,
+    clearInterval: 60000
+  })
 };
 
 // all needed for MVP
 server.use(helmet()); // protecting what packages we're using
 // Global middleware
+server.use(
+  cors({
+    credentials: true, // accept and send cookies to those cors requests
+    origin: "http://localhost:3000" // normally set to * for anyone to make a request || set a spefic domain for cookies.
+    // with this config we also need to have FE set up axios calls with
+    // { withCredentials: true }  -- any request you want cookies to have access to.
+  })
+); // needed for React App stretch.
 server.use(session(sessionConfig)); // for Tuesday's with sessions and cookies -- not recommended for build week.
 server.use(express.json());
-server.use(cors()); // needed for React App stretch.
 server.use(morgan("dev"));
 
 // test route -- has to be before restricted middleware.
@@ -47,6 +68,7 @@ server.get("/", (req, res) => {
 
 // delcaring routes with middleware
 server.use("/api/auth", AuthRouter);
+server.use(restricted);
 server.use("/api/users", UsersRouter);
 
 module.exports = server;

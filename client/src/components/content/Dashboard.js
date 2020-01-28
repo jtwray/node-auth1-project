@@ -10,12 +10,12 @@ export default function Dashboard() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8675/api/users")
+      .get("http://localhost:8675/api/users", { withCredentials: true })
       .then(res => {
         console.log(res);
         setUsers(res.data);
       })
-      .catch(err => console.log("error: ", err.error_message));
+      .catch(err => console.log("error: ", err.message));
   }, []);
 
   if (!users) return <h1>Loading...</h1>;

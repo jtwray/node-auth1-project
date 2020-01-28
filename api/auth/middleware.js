@@ -10,11 +10,11 @@ module.exports = { restricted, registerReq, loginReq, uniqueUserReg };
  * @param {*} next next function from express
  */
 function restricted(req, res, next) {
+  console.log("In Restricted mw.");
+  console.log(
+    `*****\n REQ.SESSION: ${req.session}\n****\n REQ.SESSION.USERNAME: ${req.session.username}`
+  );
   if (req.session && req.session.username) {
-    console.log("In Restricted mw.");
-    console.log(
-      `*****\n REQ.SESSION: ${req.session}\n****`
-    );
     next();
   } else {
     res.status(401).json({

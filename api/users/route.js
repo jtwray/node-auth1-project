@@ -7,14 +7,11 @@ const { getUsers, updateUser, removeUser } = require("../auth/model.js");
 
 // middleware functions
 const { validateUserPermissions } = require("./middleware.js");
-const { restricted } = require("../auth/middleware.js");
 
 // gets all usersnames -- stretch display
-router.get("/", restricted, (req, res) => {
+router.get("/", (req, res) => {
   console.log("USERS***********");
-  console.log(typeof restricted);
   console.log("req.session: ", req.session);
-  // console.log("req.session.username: ", req.session.username);
   getUsers()
     .then(users => res.status(200).json(users))
     .catch(err =>
