@@ -11,6 +11,10 @@ module.exports = { restricted, registerReq, loginReq, uniqueUserReg };
  */
 function restricted(req, res, next) {
   if (req.session && req.session.username) {
+    console.log("In Restricted mw.");
+    console.log(
+      `*****\n REQ.SESSION: ${req.session}\n****`
+    );
     next();
   } else {
     res.status(401).json({

@@ -3,9 +3,6 @@ const express = require("express");
 const helmet = require("helmet");
 // For Stretch
 const cors = require("cors");
-// global middleware
-const { restricted } = require("./auth/middleware.js");
-
 // really awesome logger, check it out on npm https://www.npmjs.com/package/morgan
 const morgan = require("morgan");
 
@@ -21,7 +18,7 @@ const server = express();
 // 12 - 22 is for Tuesday's MVP.
 const sessionConfig = {
   name: "shortbreadalmondcookies",
-  secret: "happybirthdayfrosty",
+  secret: process.env.SESSION_SECRET || "happybirthdayfrosty",
   cookie: {
     httpOnly: true,
     maxAge: 1 * 60 * 60 * 1000,
@@ -31,16 +28,15 @@ const sessionConfig = {
   saveUninitialized: true
 };
 
+// all needed for MVP
+server.use(helmet()); // protecting what packages we're using
 // Global middleware
 server.use(session(sessionConfig)); // for Tuesday's with sessions and cookies -- not recommended for build week.
-// all needed for MVP
 server.use(express.json());
-server.use(helmet());
 server.use(cors()); // needed for React App stretch.
-server.use(express());
 server.use(morgan("dev"));
 
-// test route -- has to be before line 54.
+// test route -- has to be before restricted middleware.
 server.get("/", (req, res) => {
   res
     .status(200)
@@ -51,8 +47,6 @@ server.get("/", (req, res) => {
 
 // delcaring routes with middleware
 server.use("/api/auth", AuthRouter);
-server.use(restricted); // all routes pass here user must be logged in. Also global middleware.
 server.use("/api/users", UsersRouter);
-
 
 module.exports = server;

@@ -8,7 +8,7 @@ import NavBar from "./components/nav/NavBar.js";
 
 // testing
 import Login from "./components/content/Login.js";
-import Dashboard from './components/content/Dashboard.js'
+import Dashboard from "./components/content/Dashboard.js";
 
 function App() {
   const initialState = {
@@ -26,21 +26,18 @@ function App() {
     error: ""
   };
 
-  
-
   return (
     <div>
       {/* routes */}
 
       <Route path="/signup" />
-      <Route path="/login" />
+      <Route path="/login" render={props => <Login {...props} />} />
+      <Route path="/dashboard" render={props => <Dashboard {...props} />} />
 
       {/* components */}
       <NavBar isLoggedIn={initialState.login.isLoggedIn} />
       {/* <Content />
       <Footer /> */}
-      <Login />
-      {/* <Dashboard /> */}
     </div>
   );
 }

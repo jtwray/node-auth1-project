@@ -2,17 +2,16 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 
-export default function Login() {
+export default function Login(props) {
   const { register, handleSubmit, errors } = useForm();
   const onSubmit = data => {
     console.log("data: ", data);
     axios
       .post("http://localhost:8675/api/auth/login", data)
       .then(res => {
-        console.log('res: ', res)
-        // set user session???
-        // push to dashboard.
-        //props.history.push('/dashboard');
+        console.log("res: ", res);
+        sessionStorage.setItem("username", res.data.username);
+        setTimeout(() => props.history.push("/dashboard"), 500)
       })
       .catch(err => console.log("error:", err));
   };

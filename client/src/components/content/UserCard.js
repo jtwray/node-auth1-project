@@ -9,7 +9,6 @@ export default function UserCard(props) {
       <Card
         header={props.user.username}
         meta="User"
-        description={`Contact me @ ${props.user.email}`}
       />
     </div>
   );

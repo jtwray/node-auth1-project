@@ -13,17 +13,17 @@ export default function Dashboard() {
       .get("http://localhost:8675/api/users")
       .then(res => {
         console.log(res);
-        // setUsers(res.data)
+        setUsers(res.data);
       })
-      .catch(err => console.log("error: ", err));
+      .catch(err => console.log("error: ", err.error_message));
   }, []);
 
   if (!users) return <h1>Loading...</h1>;
   return (
     <div>
       <h1>All Users! Yay!!!</h1>
-      {users.map(user => (
-        <UserCard user={user} />
+      {users.map((user, index) => (
+        <UserCard key={index} user={user} />
       ))}
     </div>
   );
