@@ -8,6 +8,7 @@ import NavBar from "./components/nav/NavBar.js";
 
 // testing
 import Login from "./components/content/Login.js";
+import Dashboard from './components/content/Dashboard.js'
 
 function App() {
   const initialState = {
@@ -25,6 +26,8 @@ function App() {
     error: ""
   };
 
+  
+
   return (
     <div>
       {/* routes */}
@@ -37,6 +40,7 @@ function App() {
       {/* <Content />
       <Footer /> */}
       <Login />
+      {/* <Dashboard /> */}
     </div>
   );
 }
