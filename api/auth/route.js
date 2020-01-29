@@ -2,7 +2,7 @@ const router = require("express").Router();
 const bcrypt = require("bcryptjs");
 
 // database functions
-const { getUserByProperty, getUserBy, addUser } = require("./model.js");
+const { getUserBy, addUser } = require("./model.js");
 
 // middleware
 const { registerReq, loginReq, uniqueUserReg } = require("./middleware.js");

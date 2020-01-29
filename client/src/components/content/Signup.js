@@ -7,13 +7,17 @@ export default function Signup(props) {
   const onSubmit = data => {
     console.log(data);
     axiosWithAuth()
-      .post("/register", data, {
+      .post("/auth/register", data, {
         withCredentials: true
       })
       .then(res => {
         console.log("signup res: ", res);
+        let user = {
+          username: data.username,
+          password: data.password
+        };
         axiosWithAuth()
-          .post("http://localhost:8675/api/auth/login", data, {
+          .post("/auth/login", user, {
             withCredentials: true
           })
           .then(res => {
@@ -21,7 +25,8 @@ export default function Signup(props) {
             setTimeout(() => props.history.push("/dashboard"), 500);
           })
           .catch(err => console.log("error:", err));
-      });
+      })
+      .catch(err => console.log("error: ", err));
   };
   console.log(errors);
 

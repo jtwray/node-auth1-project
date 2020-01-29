@@ -14,10 +14,11 @@ import Signup from "./components/content/Signup.js";
 import Dashboard from "./components/content/Dashboard.js";
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   return (
     <div className="App">
       {/* components */}
-      <NavBar />
+      <NavBar isLoggedIn={isLoggedIn} />
       {/* <Content />
       <Footer /> */}
 

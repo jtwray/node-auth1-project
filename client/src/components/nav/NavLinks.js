@@ -2,12 +2,12 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 
 export default function NavLinks(props) {
-    console.log(props)
+  console.log(props);
   if (props.isLoggedIn === false) {
     return (
       <div className="logged-out nav-links">
         <NavLink to="/login">Login</NavLink>
-        <NavLink to="/register">Signup</NavLink>
+        <NavLink to="/signup">Signup</NavLink>
       </div>
     );
   } else {

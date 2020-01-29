@@ -7,7 +7,7 @@ export default function NavBar(props) {
   return (
     <div className="nav">
       {/* image */}
-      <NavLinks />
+      <NavLinks isLoggedIn={props.isLoggedIn}/>
     </div>
   );
 }
