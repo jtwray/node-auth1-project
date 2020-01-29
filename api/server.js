@@ -51,6 +51,30 @@ server.use(
     origin: "http://localhost:3000" // normally set to * for anyone to make a request || set a spefic domain for cookies.
     // with this config we also need to have FE set up axios calls with
     // { withCredentials: true }  -- any request you want cookies to have access to.
+
+    /**
+     * 
+     *  some documentation on setting up cookies with express/cors/axios/react
+     * 
+     *  cors docs with configuring cors
+     *  https://www.npmjs.com/package/cors#configuring-cors
+     * 
+     *  axios docs for all options
+     *  https://www.npmjs.com/package/axios
+     * 
+     *  this is the section further down the page for the withCredentials
+     *   // `withCredentials` indicates whether or not cross-site Access-Control requests
+     *   // should be made using credentials
+     *   withCredentials: false, // default
+     * 
+     *  an article for cors and expresss
+     *  https://medium.com/@alexishevia/using-cors-in-express-cac7e29b005b
+     * 
+     *  an article for fetch and axios with cookies: 
+     *  https://codewithhugo.com/pass-cookies-axios-fetch-requests/
+     * 
+     */
+
   })
 ); // needed for React App stretch.
 server.use(session(sessionConfig)); // for Tuesday's with sessions and cookies -- not recommended for build week.
@@ -69,6 +93,6 @@ server.get("/", (req, res) => {
 // delcaring routes with middleware
 server.use("/api/auth", AuthRouter);
 server.use(restricted);
-server.use("/api/users", UsersRouter);
+server.use("/api/restricted/users", UsersRouter);
 
 module.exports = server;

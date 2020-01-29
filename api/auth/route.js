@@ -38,7 +38,7 @@ router.post("/login", loginReq, (req, res) => {
         console.log("req.session: ", req.session);
         return res.status(200).json({
           message: `Logged in ${user.username}`,
-          session: req.session
+          username: user.username
         });
       } else res.status(401).json({ message: "You shall not pass." });
     })

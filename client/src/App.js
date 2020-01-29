@@ -1,43 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import { Route, Switch } from "react-router-dom";
+import "./App.scss";
 
 // local imports
+import PrivateRoute from "./components/PrivateRoute.js";
 import NavBar from "./components/nav/NavBar.js";
 // import Content from "./components/content/Content.js";
 // import Footer from "./components/nav/Footer.js";
 
 // testing
 import Login from "./components/content/Login.js";
+import Signup from "./components/content/Signup.js";
 import Dashboard from "./components/content/Dashboard.js";
 
 function App() {
-  const initialState = {
-    login: {
-      isLogginIn: false,
-      isLoggedIn: false,
-      error: ""
-    },
-    user: {
-      id: null,
-      username: null,
-      email: null
-    },
-    allUsers: [],
-    error: ""
-  };
-
   return (
-    <div>
-      {/* routes */}
-
-      <Route path="/signup" />
-      <Route path="/login" render={props => <Login {...props} />} />
-      <Route path="/dashboard" render={props => <Dashboard {...props} />} />
-
+    <div className="App">
       {/* components */}
-      <NavBar isLoggedIn={initialState.login.isLoggedIn} />
+      <NavBar />
       {/* <Content />
       <Footer /> */}
+
+      {/* routes */}
+      <Switch>
+        <PrivateRoute path="/dashboard" component={Dashboard} />
+        <Route path="/login" render={props => <Login {...props} />} />
+      </Switch>
+
+      <Route path="/signup" render={props => <Signup {...props} />} />
     </div>
   );
 }
